@@ -12,6 +12,7 @@ import EnsiklopediaPage from "./pages/EnsiklopediaPage";
 import DetailHerbalPage from "./pages/DetailHerbalPage";
 import KeluhanPage from "./pages/KeluhanPage";
 import DetailRacikanPage from "./pages/DetailRacikanPage";
+import ArtikelPage from "./pages/ArtikelPage";
 import DetailArtikelPage from "./pages/DetailArtikelPage";
 import RiwayatPage from "./pages/RiwayatPage";
 import JurnalResepPage from "./pages/JurnalResepPage";
@@ -42,6 +43,7 @@ function App() {
                 }
               />
 
+              <Route path="/artikel" element={<ArtikelPage />} />
               <Route path="/artikel/:slug" element={<DetailArtikelPage />} />
 
               <Route

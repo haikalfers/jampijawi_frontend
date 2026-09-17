@@ -2,19 +2,7 @@ import {
   ArrowRight, PlayCircle, ShieldAlert, BookOpenCheck, Leaf, BadgeCheck, Brain, Sparkles,
 } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
-
-const artikel = [
-  { key: "artikel1", kategori: "Panduan Meramu", foto: "/jamu-kunyit-asam.jpeg" },
-  { key: "artikel2", kategori: "Tips Herbal", foto: "/wedang-jahe-sereh.jpg" },
-  { key: "artikel3", kategori: "Budaya", foto: "/jamu-beras-kencur.jpg" },
-  { key: "artikel4", kategori: "Panduan Meramu", foto: "/temulawak.jpg" },
-  { key: "artikel5", kategori: "Tips Herbal", foto: "/kunyit.png" },
-  { key: "artikel6", kategori: "Budaya", foto: "/kencur.jpg" },
-  { key: "artikel7", kategori: "Tips Herbal", foto: "/jamu-sinom.jpg" },
-  { key: "artikel8", kategori: "Panduan Meramu", foto: "/jamu-uyup-uyup.jpg" },
-  { key: "artikel9", kategori: "Budaya", foto: "/wedang-uwuh.jpg" },
-  { key: "artikel10", kategori: "Panduan Meramu", foto: "/jamu-galian-singset.jpg" },
-];
+import { articles } from "../lib/articles";
 
 export default function HomePage() {
   const { t } = useLanguage();
@@ -117,13 +105,13 @@ export default function HomePage() {
             <div className="absolute bottom-4 left-4 right-4 flex flex-col sm:flex-row gap-3">
               <div className="flex-1 bg-emerald-800/95 backdrop-blur text-white rounded-xl p-4">
                 <Leaf size={18} />
-                <p className="mt-2 font-semibold text-sm">{t("home.herbal100")}</p>
-                <p className="text-xs text-emerald-100 mt-1">{t("home.herbal100Desc")}</p>
+                <p className="mt-2 font-semibold text-sm">{t("home.badge100")}</p>
+                <p className="text-xs text-emerald-100 mt-1">{t("home.desc100")}</p>
               </div>
               <div className="flex-1 bg-white/95 backdrop-blur rounded-xl p-4">
                 <BookOpenCheck size={18} className="text-emerald-700" />
-                <p className="mt-2 font-semibold text-sm text-stone-800">{t("home.tanamanJamu")}</p>
-                <p className="text-xs text-stone-500 mt-1">{t("home.tanamanJamuDesc")}</p>
+                <p className="mt-2 font-semibold text-sm text-stone-800">{t("home.badgeTanaman")}</p>
+                <p className="text-xs text-stone-500 mt-1">{t("home.descTanaman")}</p>
               </div>
             </div>
           </div>
@@ -154,7 +142,7 @@ export default function HomePage() {
             <blockquote className="mt-6 border-l-4 border-emerald-700 bg-emerald-50 rounded-r-xl px-5 py-4 text-sm text-stone-600 italic">
               "{t("home.quote")}"
               <footer className="mt-2 not-italic text-xs font-semibold text-stone-700">
-                {t("home.quoteBy")}
+                {t("home.quoteFooter")}
               </footer>
             </blockquote>
           </div>
@@ -182,8 +170,8 @@ export default function HomePage() {
                 <div className="mt-4 bg-stone-900 text-stone-100 rounded-xl p-3 text-xs flex items-center gap-2">
                   <Brain size={16} className="text-emerald-400" />
                   <div>
-                    <p className="text-stone-400">{t("home.langkah2ContohLabel")}</p>
-                    <p>{t("home.langkah2ContohValue")}</p>
+                    <p className="text-stone-400">{t("home.contohHasilLabel")}</p>
+                    <p>{t("home.contohHasilValue")}</p>
                   </div>
                 </div>
               )}
@@ -205,7 +193,7 @@ export default function HomePage() {
               </p>
             </div>
             <a href="/keluhan" className="text-sm font-medium text-emerald-700 flex items-center gap-1">
-              {t("home.lihatSemuaKategori")} <ArrowRight size={14} />
+              {t("home.gejalaLihatSemua")} <ArrowRight size={14} />
             </a>
           </div>
 
@@ -215,7 +203,7 @@ export default function HomePage() {
                 <p className="font-semibold text-stone-800">{title}</p>
                 <p className="text-sm text-stone-500 mt-2">{desc}</p>
                 <a href="/keluhan" className="mt-4 inline-flex items-center gap-1 text-sm text-emerald-700 font-medium">
-                  {t("home.cekRamuan")} <ArrowRight size={14} />
+                  {t("home.gejalaCekRamuan")} <ArrowRight size={14} />
                 </a>
               </div>
             ))}
@@ -236,23 +224,23 @@ export default function HomePage() {
               </p>
             </div>
             <a href="/artikel" className="text-sm font-medium text-emerald-700 flex items-center gap-1 shrink-0">
-              {t("home.lihatSemuaArtikel")} <ArrowRight size={14} />
+              {t("home.artikelLihatSemua")} <ArrowRight size={14} />
             </a>
           </div>
 
           <div className="mt-10 -mx-6 px-6 overflow-x-auto scrollbar-hide">
             <div className="flex gap-5 snap-x snap-mandatory">
-              {artikel.map(({ key, kategori, foto }) => (
+              {articles.map(({ slug, image }, index) => (
                 <a
-                  key={key}
-                  href="/artikel"
+                  key={slug}
+                  href={`/artikel/${slug}`}
                   className="w-72 shrink-0 snap-start rounded-2xl overflow-hidden border border-stone-200 hover:border-emerald-200 transition bg-white"
                 >
-                  <img src={foto} alt={t(`artikelData.${key}.judul`)} className="h-40 w-full object-cover" />
+                  <img src={image} alt={t(`artikelData.${index}.judul`)} className="h-40 w-full object-cover" />
                   <div className="p-5">
-                    <span className="text-[10px] font-medium text-emerald-700 uppercase">{kategori}</span>
-                    <p className="mt-2 font-semibold text-stone-800">{t(`artikelData.${key}.judul`)}</p>
-                    <p className="text-sm text-stone-500 mt-2">{t(`artikelData.${key}.desc`)}</p>
+                    <span className="text-[10px] font-medium text-emerald-700 uppercase">{t(`artikelData.${index}.kategori`)}</span>
+                    <p className="mt-2 font-semibold text-stone-800">{t(`artikelData.${index}.judul`)}</p>
+                    <p className="text-sm text-stone-500 mt-2">{t(`artikelData.${index}.desc`)}</p>
                   </div>
                 </a>
               ))}

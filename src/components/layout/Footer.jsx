@@ -48,13 +48,13 @@ export default function Footer() {
           </p>
           <ul className="space-y-3 text-sm text-stone-400">
             <li className="flex items-center gap-2">
-              <Mail size={14} /> halo@jampijawi.id
+              <Mail size={14} /> jampijawi@gmail.com
             </li>
             <li className="flex items-center gap-2">
-              <Globe size={14} /> www.jampijawi.id
+              <Globe size={14} /> jampijawi-frontend.vercel.app
             </li>
             <li className="flex items-center gap-2">
-              <MapPin size={14} /> Bali & Yogyakarta, Indonesia
+              <MapPin size={14} /> Surabaya, Indonesia
             </li>
           </ul>
         </div>

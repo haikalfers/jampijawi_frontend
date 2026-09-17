@@ -14,6 +14,7 @@ import KeluhanPage from "./pages/KeluhanPage";
 import DetailRacikanPage from "./pages/DetailRacikanPage";
 import DetailArtikelPage from "./pages/DetailArtikelPage";
 import RiwayatPage from "./pages/RiwayatPage";
+import JurnalResepPage from "./pages/JurnalResepPage";
 import ProfilPage from "./pages/ProfilPage";
 
 function App() {
@@ -48,6 +49,13 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <RiwayatPage />
+                  </ProtectedRoute>
+                }
+              /><Route
+                path="/jurnal-resep"
+                element={
+                  <ProtectedRoute>
+                    <JurnalResepPage />
                   </ProtectedRoute>
                 }
               />

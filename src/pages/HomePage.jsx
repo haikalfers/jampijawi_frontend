@@ -106,13 +106,13 @@ export default function HomePage() {
 
       <section className="bg-stone-50 py-20">
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-stretch">
-          <div className="relative rounded-2xl overflow-hidden min-h-[420px]">
+          <div className="relative rounded-2xl overflow-hidden min-h-105">
             <img
               src="/jamu-di-vogue.jpg"
               alt="Jamu"
               className="absolute inset-0 h-full w-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/50 via-black/10 to-transparent" />
 
             <div className="absolute bottom-4 left-4 right-4 flex flex-col sm:flex-row gap-3">
               <div className="flex-1 bg-emerald-800/95 backdrop-blur text-white rounded-xl p-4">
@@ -262,7 +262,7 @@ export default function HomePage() {
       </section>
       
       <section className="max-w-7xl mx-auto px-6 pb-20">
-        <div className="bg-gradient-to-br from-emerald-800 to-emerald-950 rounded-3xl px-8 py-16 text-center text-white">
+        <div className="bg-linear-to-br from-emerald-800 to-emerald-950 rounded-3xl px-8 py-16 text-center text-white">
           <span className="text-xs font-semibold text-emerald-300 tracking-wide">{t("home.ctaLabel")}</span>
           <h2 className="mt-3 text-3xl sm:text-4xl font-bold max-w-2xl mx-auto">
             {t("home.ctaTitle")}

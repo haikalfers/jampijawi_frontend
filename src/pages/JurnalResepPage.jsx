@@ -1,30 +1,63 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { BookOpen, Trash2, Sun, Moon } from "lucide-react";
+import { authApi } from "../lib/axios";
 
 export default function JurnalResepPage() {
   const [jurnal, setJurnal] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("jurnal_resep") || "[]");
-    setJurnal(data.reverse());
+    fetchJurnal();
   }, []);
 
-  const toggleDosis = (id, waktu) => {
-    const updated = jurnal.map((item) =>
-      item.id === id
-        ? { ...item, selesai_hari_ini: { ...item.selesai_hari_ini, [waktu]: !item.selesai_hari_ini?.[waktu] } }
-        : item
-    );
-    setJurnal(updated);
-    localStorage.setItem("jurnal_resep", JSON.stringify([...updated].reverse()));
+  const fetchJurnal = async () => {
+    try {
+      const res = await authApi.get("/jurnal");
+      setJurnal(res.data.jurnal);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const hapusItem = (id) => {
-    const updated = jurnal.filter((item) => item.id !== id);
-    setJurnal(updated);
-    localStorage.setItem("jurnal_resep", JSON.stringify([...updated].reverse()));
+  const toggleDosis = async (id, waktu) => {
+    const item = jurnal.find((j) => j.id === id);
+    const value = !item.selesai_hari_ini?.[waktu];
+
+    // Update UI dulu (optimistic update)
+    setJurnal((prev) =>
+      prev.map((j) =>
+        j.id === id
+          ? { ...j, selesai_hari_ini: { ...j.selesai_hari_ini, [waktu]: value } }
+          : j
+      )
+    );
+
+    try {
+      await authApi.patch(`/jurnal/${id}/toggle`, { waktu, value });
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  const hapusItem = async (id) => {
+    setJurnal((prev) => prev.filter((j) => j.id !== id));
+    try {
+      await authApi.delete(`/jurnal/${id}`);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="bg-white min-h-screen flex items-center justify-center">
+        <p className="text-stone-400">Memuat jurnal...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white min-h-screen">

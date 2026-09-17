@@ -66,7 +66,7 @@ export default function ArtikelHorizontalSection({ artikel }) {
                 href="/artikel"
                 className="w-72 shrink-0 rounded-2xl overflow-hidden border border-stone-200 hover:border-emerald-200 transition bg-white"
               >
-                <div className="h-40 bg-gradient-to-br from-amber-100 to-emerald-100" />
+                <div className="h-40 bg-linear-to-br from-amber-100 to-emerald-100" />
                 <div className="p-5">
                   <span className="text-[10px] font-medium text-emerald-700 uppercase">{kategori}</span>
                   <p className="mt-2 font-semibold text-stone-800">{judul}</p>

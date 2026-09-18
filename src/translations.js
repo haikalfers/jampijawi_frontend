@@ -18,6 +18,7 @@ export const translations = {
       footNote: "Disusun berdasarkan pengetahuan jamu tradisional Jawa yang diwariskan turun-temurun",
 
       previewLabel: "CONTOH HASIL REKOMENDASI",
+      previewIlustrasi: "Ilustrasi",
       previewBadge: "Ilustrasi",
       previewMatch: "Temulawak cocok untuk keluhan ini",
       previewKeluhanLabel: "KELUHAN",
@@ -330,6 +331,7 @@ export const translations = {
       footNote: "Based on traditional Javanese herbal knowledge passed down through generations",
 
       previewLabel: "SAMPLE RECOMMENDATION RESULT",
+      previewIlustrasi: "Illustration",
       previewBadge: "Illustration",
       previewMatch: "Temulawak fits this symptom",
       previewKeluhanLabel: "SYMPTOM",

@@ -30,7 +30,7 @@ export default function LoginPage() {
       const res = await publicApi.post("/auth/login", { email, password });
       const { token, user } = res.data;
       login(token, user);
-      navigate("/");
+      navigate("/keluhan");
     } catch (err) {
       setError(err.response?.data?.message || t("auth.errorLoginGagal"));
     } finally {

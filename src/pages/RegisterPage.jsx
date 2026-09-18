@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Leaf, Mail, Lock, User, Eye, EyeOff } from "lucide-react";
 import { publicApi } from "../lib/axios";
-import { useAuth } from "../context/AuthContext";
 import { useLanguage } from "../context/LanguageContext";
 
 export default function RegisterPage() {
@@ -15,7 +14,6 @@ export default function RegisterPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -37,10 +35,8 @@ export default function RegisterPage() {
 
     setLoading(true);
     try {
-      const res = await publicApi.post("/auth/register", { nama, email, password });
-      const { token, user } = res.data;
-      login(token, user);
-      navigate("/");
+      await publicApi.post("/auth/register", { nama, email, password });
+      navigate("/login");
     } catch (err) {
       setError(err.response?.data?.message || t("auth.errorRegisterGagal"));
     } finally {

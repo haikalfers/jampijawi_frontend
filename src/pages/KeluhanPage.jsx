@@ -57,6 +57,7 @@ export default function KeluhanPage() {
   const [showModal, setShowModal] = useState(false);
   const [tersimpan, setTersimpan] = useState(false);
   const [rekomendasi, setRekomendasi] = useState([]);
+  const [recommendationMessage, setRecommendationMessage] = useState("");
   const [loadingRamuan, setLoadingRamuan] = useState(false);
 
   const toggleGejala = (id) => {
@@ -76,6 +77,7 @@ export default function KeluhanPage() {
 
   const handleCariRamuan = async () => {
     setTersimpan(false);
+    setRecommendationMessage("");
     setLoadingRamuan(true);
 
     const symptomMap = {
@@ -90,9 +92,12 @@ export default function KeluhanPage() {
     try {
       const res = await authApi.post("/symptoms/rekomendasi", { symptomIds });
       setRekomendasi(res.data.rekomendasi);
+      setRecommendationMessage(res.data.message || "");
       setShowModal(true);
     } catch (error) {
       console.error(error);
+      setRecommendationMessage("Rekomendasi belum dapat dimuat. Periksa koneksi server.");
+      setShowModal(true);
     } finally {
       setLoadingRamuan(false);
     }
@@ -396,11 +401,17 @@ export default function KeluhanPage() {
         </div>
       </div>
 
-      {showModal && rekomendasi.length > 0 && (
+      {showModal && (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
         <div className="bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
-          <div className="relative h-48">
-            <img src={rekomendasi[0].foto} alt={rekomendasi[0].nama} className="h-full w-full object-cover rounded-t-3xl" />
+          {rekomendasi.length > 0 ? <div className="relative h-48">
+            {rekomendasi[0].foto ? (
+              <img src={rekomendasi[0].foto} alt={rekomendasi[0].nama} className="h-full w-full object-cover rounded-t-3xl" />
+            ) : (
+              <div className="h-full w-full rounded-t-3xl bg-emerald-50 flex items-center justify-center px-8 text-center">
+                <p className="text-lg font-semibold text-emerald-800">{rekomendasi[0].nama}</p>
+              </div>
+            )}
             <button
               onClick={() => setShowModal(false)}
               className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center"
@@ -415,9 +426,18 @@ export default function KeluhanPage() {
                 ⏱ {rekomendasi[0].waktu}
               </span>
             </div>
-          </div>
+          </div> : (
+            <div className="flex justify-end p-4">
+              <button
+                onClick={() => setShowModal(false)}
+                className="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center"
+              >
+                <X size={16} />
+              </button>
+            </div>
+          )}
 
-          <div className="p-6">
+          {rekomendasi.length > 0 ? <div className="p-6">
             <h2 className="text-2xl font-bold text-stone-900">Rekomendasi Racikan</h2>
             <p className="text-sm text-stone-500 mt-1">Berdasarkan gejala yang kamu pilih</p>
 
@@ -502,7 +522,14 @@ export default function KeluhanPage() {
             >
               <RotateCcw size={16} /> Deteksi Ulang
             </button>
-          </div>
+          </div> : (
+            <div className="px-6 pb-8 text-center">
+              <h2 className="text-xl font-bold text-stone-900">Belum Ada Rekomendasi</h2>
+              <p className="mt-2 text-sm text-stone-500">
+                {recommendationMessage || "Belum ada racikan yang sesuai dengan gejala yang dipilih."}
+              </p>
+            </div>
+          )}
         </div>
       </div>
     )}
